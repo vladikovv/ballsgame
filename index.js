@@ -2,6 +2,13 @@ const canvas = document.querySelector('canvas');
 
 const ctx = canvas.getContext('2d');
 
+const soundtrack = document.getElementById("soundtrack");
+const laserSound = document.getElementById("laserSound");
+laserSound.volume = 0.3;
+
+var timesReplayed = 0;
+
+
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
@@ -178,7 +185,7 @@ function spawnEnemies() {
 
         enemies.push(new Enemy(x, y, radius, velocity))
         console.log(enemies)
-    }, Math.random() * (1500 - 1000) + 1000)  
+    }, Math.random() * (1000 - 500) + 500)  
 }
 
 let animationId;
@@ -252,7 +259,7 @@ function animate() {
                     
                                 
                 }     
-                for(var i = 0; i < Math.floor(enemy.radius); i++) {
+                for(var i = 0; i < Math.floor(enemy.radius / 2); i++) {
                     particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2,
                         {x: (Math.random() - 0.5) * (Math.random() * 10 ) , y: (Math.random() - 0.5) * (Math.random() * 10) }, enemy))
                 }
@@ -277,6 +284,7 @@ addEventListener('click', (event) => {
         y: Math.sin(angle) * 24
     }
     projectiles.push(new Projectile(player.x, player.y, 3.5, 'white', velocity ));
+    laserSound.play();
 })
 
 window.onkeydown = function(event) {
@@ -310,9 +318,14 @@ window.onkeyup = function(event) {
   }
 
 startingButton.addEventListener('click', () => {
+    timesReplayed++;
     init();
+    if(timesReplayed <= 1) {
+        spawnEnemies();
+    }   
+    soundtrack.play();
     
-    spawnEnemies();
+
     modalEl.style.display = 'none';    
     animate();
 }) 
