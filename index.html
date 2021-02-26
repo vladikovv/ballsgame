@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(0, 12, 51);
+        }
+        </style>
+
+<div class="fixed text-white text-sm ml-2 mt-2 select-none">
+    <span>Score: </span>
+    <span id='scoreEl'>0</span>
+</div>
+
+<div class="fixed inset-0 flex items-center justify-center" id="modalEl">
+    <div class="bg-white max-w-md w-full p-6 text-center">
+        <h1 class="text-4xl font-bold leading-none" id="endScore">0</h1>
+        <p class="text-sm text-gray-700">Points</p>
+        <div>
+            <button class="text-sm bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-full text-white w-full py-2 my-2" 
+            id="startingButton">Start Game</button>
+        </div>
+    </div>
+</div>
+
+<canvas>
+    
+</canvas>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+        <script src="./index.js"></script>
+</html>
