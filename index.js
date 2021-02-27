@@ -7,7 +7,8 @@ const laserSound = document.getElementById("laserSound");
 laserSound.volume = 0.3;
 
 var timesReplayed = 0;
-
+var gameStarted = false;
+var timeElapsed;
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -16,6 +17,7 @@ const scoreEl = document.querySelector('#scoreEl');
 const startingButton = document.querySelector('#startingButton');
 const modalEl = document.querySelector("#modalEl");
 const endScore = document.querySelector("#endScore");
+const highScores = document.querySelector('#highScoresButton');
 
 const playerFriction = 0.975;
 class Player {
@@ -221,6 +223,7 @@ function animate() {
 
         const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
         if(dist - player.radius - enemy.radius < 1) {
+            gameStarted = false;
             cancelAnimationFrame(animationId)
             endScore.innerHTML = score;
             modalEl.style.display = 'flex';
@@ -278,13 +281,19 @@ function animate() {
 
 
 addEventListener('click', (event) => {
+
+    if(performance.now() - timeElapsed > 50) {
+
     const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x);
     const velocity = {
         x: Math.cos(angle) * 24,
         y: Math.sin(angle) * 24
     }
     projectiles.push(new Projectile(player.x, player.y, 3.5, 'white', velocity ));
-    laserSound.play();
+    if(gameStarted) {
+        laserSound.play();
+    }
+}
 })
 
 window.onkeydown = function(event) {
@@ -319,8 +328,9 @@ window.onkeyup = function(event) {
 
 startingButton.addEventListener('click', () => {
     timesReplayed++;
+    gameStarted = true;
     init();
-    
+
     if(timesReplayed <= 1) {
         spawnEnemies();
     }   
@@ -332,6 +342,7 @@ startingButton.addEventListener('click', () => {
 
     modalEl.style.display = 'none';    
     animate();
+    timeElapsed = performance.now();
 }) 
 
   
