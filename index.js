@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 const soundtrack = document.getElementById("soundtrack");
 const laserSound = document.getElementById("laserSound");
 laserSound.volume = 0.3;
+var textInput;
 
 var timesReplayed = 0;
 var gameStarted = false;
@@ -259,14 +260,12 @@ function animate() {
                         setTimeout(function() {
                             enemies.splice(index, 1);
                         }, 120)  
-                    
-                                
+                                           
                 }     
                 for(var i = 0; i < Math.floor(enemy.radius / 2); i++) {
                     particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2,
                         {x: (Math.random() - 0.5) * (Math.random() * 10 ) , y: (Math.random() - 0.5) * (Math.random() * 10) }, enemy))
-                }
-                              
+                }                           
             }
         })   
     })
@@ -327,6 +326,7 @@ window.onkeyup = function(event) {
   }
 
 startingButton.addEventListener('click', () => {
+    
     timesReplayed++;
     gameStarted = true;
     init();
