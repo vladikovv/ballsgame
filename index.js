@@ -213,9 +213,9 @@ function animate() {
 
     enemies.forEach((enemy, index) => {
 
-        //if(enemy.x > 2000 || enemy.x < -300 || enemy.y > 1200 || enemy.y < -300) {
-          //  enemies.splice(index, 1)
-       // }
+        if(enemy.x > 2000 || enemy.x < -300 || enemy.y > 1200 || enemy.y < -300) {
+            enemies.splice(index, 1)
+        }
 
         enemy.update();
 
@@ -320,11 +320,15 @@ window.onkeyup = function(event) {
 startingButton.addEventListener('click', () => {
     timesReplayed++;
     init();
+    
     if(timesReplayed <= 1) {
         spawnEnemies();
     }   
-    soundtrack.play();
     
+    if(soundtrack.paused) {
+        soundtrack.currentTime = 0;
+        soundtrack.play();
+    }
 
     modalEl.style.display = 'none';    
     animate();
